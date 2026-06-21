@@ -1,0 +1,26 @@
+services:
+  database:
+    image: postgres:15-alpine
+    container_name: tracker_postgres_engine
+    restart: unless-stopped
+
+    environment:
+      POSTGRES_USER: engine_admin
+      POSTGRES_PASSWORD: CHANGE_THIS_TO_A_LONG_RANDOM_PASSWORD
+      POSTGRES_DB: core_telemetry_store
+
+    volumes:
+      - postgres_production_volume:/var/lib/postgresql/data
+
+    ports:
+      - "5432:5432" # optional, needed if laptop apps connect directly
+
+    networks:
+      - telemetry_network
+
+volumes:
+  postgres_production_volume:
+
+networks:
+  telemetry_network:
+    driver: bridge
