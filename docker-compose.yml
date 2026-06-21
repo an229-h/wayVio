@@ -13,7 +13,24 @@ services:
       - postgres_production_volume:/var/lib/postgresql/data
 
     ports:
-      - "5432:5432" # optional, needed if laptop apps connect directly
+      - "5432:5432"
+
+    networks:
+      - telemetry_network
+
+  backend_api:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+
+    container_name: tracker_fastapi_api
+    restart: always
+
+    depends_on:
+      - database
+
+    ports:
+      - "8000:8000"
 
     networks:
       - telemetry_network
