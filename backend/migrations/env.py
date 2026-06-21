@@ -15,9 +15,11 @@ from models.user import User
 config = context.config
 load_dotenv()
 
+database_url = os.environ["DATABASE_URL"].replace("%", "%%")
+
 config.set_main_option(
     "sqlalchemy.url",
-    os.environ["DATABASE_URL"]
+    database_url
 )
 # Interpret the config file for Python logging.
 # This line sets up loggers basically.
