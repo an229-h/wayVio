@@ -35,6 +35,9 @@ services:
     networks:
       - telemetry_network
 
+    environment:
+      - DATABASE_URL=${DATABASE_URL}
+
   reverse_proxy:
     image: nginx:alpine
     container_name: tracker_nginx_ingress
