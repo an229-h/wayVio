@@ -35,6 +35,19 @@ services:
     networks:
       - telemetry_network
 
+  reverse_proxy:
+    image: nginx:alpine
+    container_name: tracker_nginx_ingress
+    restart: always
+    ports:
+      - "80:80"
+    depends_on:
+      - backend_api
+    volumes:
+      - ./infra/nginx/nginx.conf:/etc/nginx/nginx.conf:ro
+    networks:
+      - telemetry_network
+
 volumes:
   postgres_production_volume:
 
